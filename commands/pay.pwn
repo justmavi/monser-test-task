@@ -15,7 +15,7 @@ CMD:pay (playerid, const params[])
 	}
 	else if (aPlayerInfo[playerid][pLastMoneyTransferRestriction] > iUnixNow) {
 		static const fmt_str[] = "[Ошибка] У вас ограничение на перевод денег. Следующий трансфер через %d секунд(-ы)";
-		new szErrorMessage[sizeof fmt_str - 2 + 1];
+		new szErrorMessage[sizeof fmt_str - 2 + 3];
 
 		format(szErrorMessage, sizeof szErrorMessage, fmt_str, aPlayerInfo[playerid][pLastMoneyTransferRestriction] - iUnixNow);
 		SendClientMessage(playerid, -1, szErrorMessage);
@@ -28,7 +28,7 @@ CMD:pay (playerid, const params[])
 		GivePlayerMoney(playerid, -iMoney);
 
 		aPlayerInfo[playerid][pSeansTransferedMoney] += iMoney;
-		aPlayerInfo[playerid][pLastMoneyTransferRestriction] = GetTransferRestriction(pSeansTransferedMoney);
+		aPlayerInfo[playerid][pLastMoneyTransferRestriction] = iUnixNow + GetTransferRestriction(aPlayerInfo[playerid][pSeansTransferedMoney]);
 
 		if (aPlayerInfo[playerid][pMoneyTimer] == INVALID_TIMER_ID) {
 			aPlayerInfo[playerid][pMoneyTimer] = SetPlayerTimerEx(playerid, !"OnPlayerMoneyTimerElapsed", 1000 * 60 * 10, false, !"d", playerid);
