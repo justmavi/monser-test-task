@@ -2,16 +2,16 @@ CMD:takemoney(playerid, const params[])
 {
 	if (!IsPlayerAdmin(playerid)) return 0;
 
-	extract params -> new iMoney; else return SendClientMessage(playerid, -1, !"¬‚Â‰ËÚÂ: /takemoney [ÒÛÏÏ‡]");
+	extract params -> new iMoney; else return SendClientMessage(playerid, -1, !"–í–≤–µ–¥–∏—Ç–µ: /takemoney [—Å—É–º–º–∞]");
 
 	if (iMoney <= 0) {
-		return SendClientMessage(playerid, -1, !"¬‚Â‰ÂÌ‡ ÌÂ‚ÂÌ‡ˇ ÒÛÏÏ‡");
+		return SendClientMessage(playerid, -1, !"–í–≤–µ–¥–µ–Ω–∞ –Ω–µ–≤–µ—Ä–Ω–∞—è —Å—É–º–º–∞");
 	}
 
 	aPlayerInfo[playerid][pMoney] += iMoney;
 	GivePlayerMoney(playerid, iMoney);
 
-	SendClientMessage(playerid, -1, !"ƒÂÌ¸„Ë ÔÂÂ‚Â‰ÂÌ˚");
+	SendClientMessage(playerid, -1, !"–î–µ–Ω—å–≥–∏ –Ω–∞—á–∏—Å–ª–µ–Ω—ã");
 
 	return 1;
 }
