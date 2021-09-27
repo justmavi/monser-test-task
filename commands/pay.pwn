@@ -1,20 +1,20 @@
 CMD:pay (playerid, const params[])
 {
-	extract params -> new player: iTargetId, iMoney; else return SendClientMessage(playerid, -1, !"Введите: /pay [id] [сумма]");
+	extract params -> new player: iTargetId, iMoney; else return SendClientMessage(playerid, -1, !"Р’РІРµРґРёС‚Рµ: /pay [id] [СЃСѓРјРјР°]");
 	
 	new iUnixNow = gettime();
 
 	if (iMoney <= 0) {
-		return SendClientMessage(playerid, -1, !"Введена неверная сумма"); 
+		return SendClientMessage(playerid, -1, !"Р’РІРµРґРµРЅР° РЅРµРІРµСЂРЅР°СЏ СЃСѓРјРјР°"); 
 	}
 	else if (!IsPlayerConnected(iTargetId)) {
-		return SendClientMessage(playerid, -1, !"Игрок оффлайн");
+		return SendClientMessage(playerid, -1, !"РРіСЂРѕРєР° РЅРµС‚ РІ СЃРµС‚Рё");
 	}
 	else if (aPlayerInfo[playerid][pMoney] < iMoney) {
-		return SendClientMessage(playerid, -1, !"Недостаточно денег");
+		return SendClientMessage(playerid, -1, !"РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СЃСЂРµРґСЃС‚РІ");
 	}
 	else if (aPlayerInfo[playerid][pLastMoneyTransferRestriction] > iUnixNow) {
-		static const fmt_str[] = "[Ошибка] У вас ограничение на перевод денег. Следующий трансфер через %d секунд(-ы)";
+		static const fmt_str[] = "[РћС€РёР±РєР°] РЈ Р’Р°СЃ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РїРµСЂРµРІРѕРґ РґРµРЅРµРі. РЎР»РµРґСѓСЋС‰РёР№ С‚СЂР°РЅСЃС„РµСЂ С‡РµСЂРµР· %d СЃРµРєСѓРЅРґ(-С‹)";
 		new szErrorMessage[sizeof fmt_str - 2 + 3];
 
 		format(szErrorMessage, sizeof szErrorMessage, fmt_str, aPlayerInfo[playerid][pLastMoneyTransferRestriction] - iUnixNow);
@@ -34,12 +34,12 @@ CMD:pay (playerid, const params[])
 			aPlayerInfo[playerid][pMoneyTimer] = SetPlayerTimerEx(playerid, !"OnPlayerMoneyTimerElapsed", 1000 * 60 * 10, false, !"d", playerid);
 		}
 
-		static const sender_fmt_str[] = "Вы перевели %s'y %d$";
-		static const recipient_fmt_str[] = "Игрок %s перевел Вам %d$ !";
+		static const sender_fmt_str[] = "{42AAFF}Р’С‹ РїРµСЂРµРІРµР»Рё %d$ РёРіСЂРѕРєСѓ %s";
+		static const recipient_fmt_str[] = "{42AAFF}РРіСЂРѕРє %s РїРµСЂРµРІРµР» Р’Р°Рј %d$ !";
 
 		new szSuccessMessage[sizeof recipient_fmt_str - 4 + MAX_PLAYER_NAME + 6];
 
-		format(szSuccessMessage, sizeof szSuccessMessage, sender_fmt_str, aPlayerInfo[iTargetId][pName], iMoney);
+		format(szSuccessMessage, sizeof szSuccessMessage, sender_fmt_str, iMoney, aPlayerInfo[iTargetId][pName]);
 		SendClientMessage(playerid, -1, szSuccessMessage);
 
 		format(szSuccessMessage, sizeof szSuccessMessage, recipient_fmt_str, aPlayerInfo[playerid][pName], iMoney);
