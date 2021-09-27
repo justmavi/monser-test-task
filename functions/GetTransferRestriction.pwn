@@ -7,6 +7,6 @@ stock GetTransferRestriction(money)
 		return MONEY_TRANSFER_MAX_DELAY;
 	}
 	else {
-		return (money / 1_000) * 3;
+		return (money / MONEY_TRANSFER_SEPARATOR) * MONEY_TRANSFER_MULTIPLIER;
 	}
 }
