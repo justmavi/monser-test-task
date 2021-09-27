@@ -18,6 +18,8 @@
 
 #define 	MONEY_TRANSFER_NO_DELAY		(0)
 #define 	MONEY_TRANSFER_MAX_DELAY	(180)
+#define 	MONEY_TRANSFER_SEPARATOR	(1000)
+#define		MONEY_TRANSFER_MULTIPLIER	(3)
 
 #define 	func%1(%2)	forward%1(%2);public%1(%2)
 
